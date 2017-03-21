@@ -7,15 +7,20 @@ module.exports = {
     },
     output: {
         path: "./dist/js",
-        filename: "js/[name]-[chunkhash].js"
+        filename: "js/[name]-[chunkhash].js",
+        publicPath:"http://cdn.com/"
     },
     plugins: [
         new htmlWebpackPlugin({
             filename: "index-[hash].html",
             template: "index.html",
-            // inject:"head"
+            inject:false,
             title: "webpack is good",
-            date: new Date()
+            date: new Date(),
+            minify:{
+                removeComments: true,
+                collapseWhitespace:true
+            }
         })
     ]
 }
