@@ -1,44 +1,33 @@
 var htmlWebpackPlugin = require("html-webpack-plugin");
+var path = require("path");
 
 module.exports = {
-    entry: {
-        main: "./src/script/main.js",
-        a: "./src/script/a.js",
-        b: "./src/script/b.js"
-    },
+    context:'/Users/daisy/private/webpack/webpack-demo',
+    entry: './src/app.js',
     output: {
-        path: "./dist/js",
-        filename: "js/[name]-[chunkhash].js",
-        publicPath:"http://cdn.com/"
+        path: "./dist",
+        filename: "js/[name].bundle.js"
+    },
+    module: {
+      loaders: [
+          {
+              test: /\.js$/,
+              loader: 'babel-loader',
+              include: path.resolve(__dirname,'src'),
+              exclude: path.resolve(__dirname,'node_modules'),
+              query: {
+                  presets: ['latest']
+              }
+
+          }
+      ]
     },
     plugins: [
         new htmlWebpackPlugin({
-            filename: "index-[hash].html",
+            filename: "index.html",
             template: "index.html",
-            inject:"body",
-            title: "webpack is good ALL",
-            chunks:["main","a","b"],
-            date: new Date()
-            // minify:{
-            //     removeComments: true,
-            //     collapseWhitespace:true
-            // },
-
-        }),
-        new htmlWebpackPlugin({
-            filename: "a.html",
-            template: "index.html",
-            inject:"body",
-            title: "webpack is good A",
-            chunks:["main","a"]
-        }),
-        new htmlWebpackPlugin({
-            filename: "b.html",
-            template: "index.html",
-            inject:"body",
-            title: "webpack is good B",
-            chunks:["main","b"]
-
+            inject:"body"
         })
+
     ]
 }
