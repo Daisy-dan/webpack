@@ -1,8 +1,9 @@
 var htmlWebpackPlugin = require("html-webpack-plugin");
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
-    context:'/Users/daisy/private/webpack/webpack-demo',
+    context:__dirname,
     entry: './src/app.js',
     output: {
         path: "./dist",
@@ -19,14 +20,28 @@ module.exports = {
                   presets: ['latest']
               }
 
+          },
+          {
+              test: /\.css$/,
+              loader: 'style-loader!css-loader?importLoaders=1!postcss-loader'
           }
       ]
     },
+
     plugins: [
         new htmlWebpackPlugin({
             filename: "index.html",
             template: "index.html",
             inject:"body"
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    require('autoprefixer')({
+                        browsers: ['last 5 versions']
+                    })
+                ]
+            }
         })
 
     ]
