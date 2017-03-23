@@ -43,11 +43,11 @@ module.exports = {
           },
           {
               test: /\.(png|jpg|gif|svg)$/i,
-              loader: 'url-loader',
-              query: {
-                  limit: 20000,
-                  name: 'images/[name]-[hash:5].[ext]'
-              }
+              loaders: [
+                  'url-loader?limit=20000&name=images/[name]-[hash:5].[ext]',
+                  'image-webpack-loader'
+              ],
+
           }
       ]
     },
