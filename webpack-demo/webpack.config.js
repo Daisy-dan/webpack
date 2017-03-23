@@ -22,8 +22,32 @@ module.exports = {
 
           },
           {
+              test: /\.html$/,
+              loader: 'html-loader'
+          },
+          {
+              test: /\.ejs$/,
+              loader: 'ejs-loader'
+          },
+          {
               test: /\.css$/,
               loader: 'style-loader!css-loader?importLoaders=1!postcss-loader'
+          },
+          {
+              test: /\.less$/,
+              loader: 'style-loader!css-loader!postcss-loader!less-loader'
+          },
+          {
+              test: /\.scss$/,
+              loader: 'style-loader!css-loader!postcss-loader!sass-loader'
+          },
+          {
+              test: /\.(png|jpg|gif|svg)$/i,
+              loader: 'url-loader',
+              query: {
+                  limit: 20000,
+                  name: 'images/[name]-[hash:5].[ext]'
+              }
           }
       ]
     },
